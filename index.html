@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description"
+        content="PhishGuard - A rule-based phishing URL detection system">
+
+    <title>PhishGuard | Phishing URL Detector</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Background effects -->
+    <div class="background-grid"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="logo">
+            <span class="logo-icon">🛡️</span>
+            <span>Phish<span>Guard</span></span>
+        </div>
+
+        <div class="nav-status">
+            <span class="status-dot"></span>
+            Security Scanner Online
+        </div>
+    </nav>
+
+
+    <!-- Main Content -->
+    <main class="container">
+
+        <!-- Hero Section -->
+        <section class="hero">
+
+            <div class="badge">
+                🔐 CYBERSECURITY PROJECT
+            </div>
+
+            <h1>
+                Detect Suspicious
+                <span>URLs</span>
+                Before They Attack
+            </h1>
+
+            <p class="hero-description">
+                PhishGuard analyzes website URLs using multiple security
+                indicators and provides a risk assessment to help identify
+                potentially malicious links.
+            </p>
+
+        </section>
+
+
+        <!-- Scanner Card -->
+        <section class="scanner-card">
+
+            <div class="scanner-header">
+
+                <div>
+                    <h2>🔍 URL Security Scanner</h2>
+                    <p>Enter a website URL to analyze its security characteristics.</p>
+                </div>
+
+                <div class="scanner-icon">
+                    🛡️
+                </div>
+
+            </div>
+
+
+            <!-- URL Input -->
+            <div class="input-section">
+
+                <label for="urlInput">
+                    Website URL
+                </label>
+
+                <div class="input-wrapper">
+
+                    <span class="input-icon">🔗</span>
+
+                    <input
+                        type="text"
+                        id="urlInput"
+                        placeholder="https://example.com"
+                        autocomplete="off"
+                    >
+
+                    <button id="clearBtn" class="clear-btn" type="button">
+                        ×
+                    </button>
+
+                </div>
+
+                <div class="input-hint">
+                    Example: https://example.com
+                </div>
+
+            </div>
+
+
+            <!-- Analyze Button -->
+            <button id="analyzeBtn" class="analyze-btn" type="button">
+
+                <span class="button-icon">🔍</span>
+
+                <span>Analyze URL</span>
+
+            </button>
+
+
+            <!-- Loading -->
+            <div id="loading" class="loading hidden">
+
+                <div class="spinner"></div>
+
+                <span>Analyzing URL security...</span>
+
+            </div>
+
+
+            <!-- Error Message -->
+            <div id="errorMessage" class="error-message hidden">
+                <span>⚠️</span>
+                <span id="errorText">
+                    Please enter a valid URL.
+                </span>
+            </div>
+
+        </section>
+
+
+        <!-- Results Section -->
+        <section id="resultsSection" class="results-section hidden">
+
+            <!-- Result Summary -->
+            <div class="result-card">
+
+                <div class="result-top">
+
+                    <div class="result-status">
+
+                        <div id="resultIcon" class="result-icon">
+                            🛡️
+                        </div>
+
+                        <div>
+
+                            <div class="result-label">
+                                SECURITY ANALYSIS
+                            </div>
+
+                            <h2 id="resultTitle">
+                                URL Analysis Result
+                            </h2>
+
+                            <p id="resultDescription">
+                                Analysis completed.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Risk Score -->
+                    <div class="score-container">
+
+                        <div class="score-label">
+                            RISK SCORE
+                        </div>
+
+                        <div class="score">
+                            <span id="riskScore">0</span>
+                            <small>/100</small>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Risk Bar -->
+                <div class="risk-bar-container">
+
+                    <div class="risk-bar">
+
+                        <div
+                            id="riskBar"
+                            class="risk-bar-fill">
+                        </div>
+
+                    </div>
+
+                    <div class="risk-labels">
+                        <span>Low Risk</span>
+                        <span>Medium</span>
+                        <span>High Risk</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Analyzed URL -->
+            <div class="analyzed-url-card">
+
+                <div class="section-title">
+                    🔗 Analyzed URL
+                </div>
+
+                <div id="analyzedUrl" class="analyzed-url">
+                    -
+                </div>
+
+            </div>
+
+
+            <!-- Security Checks -->
+            <div class="checks-card">
+
+                <div class="section-title">
+                    🔎 Security Checks
+                </div>
+
+                <div id="checksContainer" class="checks-grid">
+
+                    <!-- Checks will be generated by JavaScript -->
+
+                </div>
+
+            </div>
+
+
+            <!-- Risk Factors -->
+            <div id="riskFactorsCard" class="risk-factors-card hidden">
+
+                <div class="section-title">
+                    ⚠️ Detected Risk Factors
+                </div>
+
+                <div id="riskFactors">
+                    <!-- Risk factors generated by JavaScript -->
+                </div>
+
+            </div>
+
+
+            <!-- Scan Again -->
+            <button id="scanAgainBtn" class="scan-again-btn" type="button">
+
+                🔄 Scan Another URL
+
+            </button>
+
+        </section>
+
+
+        <!-- Scan History -->
+        <section class="history-section">
+
+            <div class="history-header">
+
+                <div>
+                    <h2>📋 Recent Scans</h2>
+                    <p>Your recent URL analysis results.</p>
+                </div>
+
+                <button
+                    id="clearHistoryBtn"
+                    class="clear-history-btn"
+                    type="button">
+                    Clear History
+                </button>
+
+            </div>
+
+            <div id="historyContainer" class="history-container">
+
+                <div class="empty-history">
+                    <div class="empty-icon">🛡️</div>
+                    <p>No scans yet</p>
+                    <span>Your analyzed URLs will appear here.</span>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- Information Section -->
+        <section class="info-section">
+
+            <div class="info-card">
+
+                <div class="info-icon">
+                    🔐
+                </div>
+
+                <h3>How PhishGuard Works</h3>
+
+                <p>
+                    PhishGuard uses rule-based URL analysis to examine
+                    multiple characteristics of a website address. These
+                    indicators are combined to calculate a risk score.
+                </p>
+
+            </div>
+
+
+            <div class="info-card">
+
+                <div class="info-icon">
+                    ⚡
+                </div>
+
+                <h3>Fast Analysis</h3>
+
+                <p>
+                    The analysis runs directly in your browser. No URL
+                    information needs to be sent to an external server.
+                </p>
+
+            </div>
+
+
+            <div class="info-card">
+
+                <div class="info-icon">
+                    🎓
+                </div>
+
+                <h3>Educational Project</h3>
+
+                <p>
+                    This project demonstrates basic cybersecurity concepts
+                    related to phishing detection and URL analysis.
+                </p>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- Footer -->
+    <footer class="footer">
+
+        <div class="footer-logo">
+            🛡️ PhishGuard
+        </div>
+
+        <p>
+            Phishing URL Detection System
+        </p>
+
+        <p class="footer-small">
+            Built as a Cybersecurity Mini Project
+        </p>
+
+    </footer>
+
+
+    <script src="script.js"></script>
+
+</body>
+</html>
