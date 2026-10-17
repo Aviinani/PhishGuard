@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#080d18">
+  <meta name="description" content="PhishGuard is a browser-based tool that checks URLs for common phishing warning signs.">
+  <title>PhishGuard | URL Security Scanner</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <div class="ambient ambient-one" aria-hidden="true"></div>
+  <div class="ambient ambient-two" aria-hidden="true"></div>
+
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="PhishGuard home">
+      <span class="brand-mark" aria-hidden="true">⌁</span>
+      <span>Phish<span>Guard</span><small>URL SECURITY SCANNER</small></span>
+    </a>
+    <div class="top-status"><span class="status-dot"></span> CLIENT-SIDE SCANNER</div>
+  </header>
+
+  <main class="page-shell">
+    <section class="hero">
+      <div class="eyebrow"><span class="eyebrow-line"></span> BROWSER-BASED URL ANALYSIS</div>
+      <h1>Stay one step ahead<br><span>of suspicious links.</span></h1>
+      <p class="hero-copy">Check a URL for common phishing warning signs before you open it. Fast, private, and simple.</p>
+    </section>
+
+    <section class="scanner-card panel" aria-labelledby="scannerHeading">
+      <div class="section-heading">
+        <div>
+          <p class="section-kicker">THREAT INSPECTION</p>
+          <h2 id="scannerHeading">Analyze a URL</h2>
+        </div>
+        <span class="lock-badge"><span aria-hidden="true">◆</span> No link is opened</span>
+      </div>
+
+      <form id="scanForm" novalidate>
+        <label for="urlInput">Website URL</label>
+        <div class="input-row">
+          <span class="input-prefix" aria-hidden="true">↗</span>
+          <input id="urlInput" name="url" type="text" inputmode="url" autocomplete="url"
+                 placeholder="https://example.com" aria-describedby="urlHelp errorText">
+          <button id="clearBtn" class="icon-button" type="button" aria-label="Clear URL" title="Clear URL">×</button>
+        </div>
+        <p id="urlHelp" class="field-help">Enter a URL to inspect its structure. Do not enter passwords or private information.</p>
+        <div id="errorMessage" class="error-message hidden" role="alert">
+          <span aria-hidden="true">!</span><span id="errorText">Please enter a valid URL.</span>
+        </div>
+        <button id="analyzeBtn" class="primary-button" type="submit">
+          <span class="button-icon" aria-hidden="true">⌕</span><span>Analyze URL</span><span class="button-arrow" aria-hidden="true">→</span>
+        </button>
+      </form>
+      <div id="loading" class="loading-state hidden" role="status" aria-live="polite">
+        <span class="spinner"></span> Inspecting URL patterns…
+      </div>
+
+      <div class="privacy-note"><span aria-hidden="true">◈</span><span><strong>Privacy-first:</strong> analysis runs in your browser. This tool does not visit the website or contact a threat-intelligence service.</span></div>
+    </section>
+
+    <section id="resultsSection" class="results-section hidden" aria-live="polite" aria-labelledby="resultTitle">
+      <div class="results-topline">
+        <div><p class="section-kicker">SCAN REPORT</p><h2>Analysis results</h2></div>
+        <button id="scanAgainBtn" class="secondary-button" type="button">↻ Scan another URL</button>
+      </div>
+
+      <div class="result-summary panel">
+        <div id="resultIcon" class="result-icon" aria-hidden="true">✓</div>
+        <div class="result-main">
+          <div class="result-label">ASSESSMENT</div>
+          <h3 id="resultTitle">Lower risk detected</h3>
+          <p id="resultDescription">No major warning signs were detected by these checks.</p>
+          <div class="analyzed-url-wrap"><span>ANALYZED URL</span><p id="analyzedUrl" class="analyzed-url"></p></div>
+        </div>
+        <div class="score-panel">
+          <div class="score-caption">RISK SCORE</div>
+          <div class="score-number"><span id="riskScore">0</span><small>/100</small></div>
+          <div class="risk-track"><div id="riskBar" class="risk-fill" style="width:0%"></div></div>
+          <div id="riskLevel" class="risk-level">LOWER RISK</div>
+        </div>
+      </div>
+
+      <div class="results-grid">
+        <section class="panel checks-panel">
+          <div class="panel-heading"><div><p class="section-kicker">URL BREAKDOWN</p><h3>Security checks</h3></div><span id="checksCount" class="count-badge">0 checks</span></div>
+          <div id="checksContainer" class="checks-container"></div>
+        </section>
+        <section id="riskFactorsCard" class="panel factors-panel">
+          <div class="panel-heading"><div><p class="section-kicker">WHY THIS SCORE?</p><h3>Risk factors</h3></div><span class="warning-symbol" aria-hidden="true">!</span></div>
+          <ul id="riskFactors" class="risk-factors"></ul>
+        </section>
+      </div>
+      <p class="disclaimer"><strong>Important:</strong> this is a heuristic educational scanner, not a guarantee that a site is safe or malicious. A low score does not prove a URL is trustworthy.</p>
+    </section>
+
+    <section class="history-section panel">
+      <div class="panel-heading history-heading">
+        <div><p class="section-kicker">YOUR BROWSER</p><h2>Recent scans</h2><p class="muted">Stored locally on this device, if browser storage is available.</p></div>
+        <button id="clearHistoryBtn" class="text-button" type="button">Clear history</button>
+      </div>
+      <div id="historyContainer" class="history-container">
+        <div class="empty-history"><span aria-hidden="true">⌁</span><p>No scans yet</p><small>Your recent URL checks will appear here.</small></div>
+      </div>
+    </section>
+
+    <section class="info-grid">
+      <article class="info-card"><span class="info-icon" aria-hidden="true">⌕</span><h3>Pattern-based checks</h3><p>Looks for URL characteristics often associated with phishing, such as deceptive hostnames and suspicious patterns.</p></article>
+      <article class="info-card"><span class="info-icon" aria-hidden="true">◈</span><h3>Local by design</h3><p>The URL is analyzed in this page. The scanner does not fetch, open, or submit it to a remote service.</p></article>
+      <article class="info-card"><span class="info-icon" aria-hidden="true">⌁</span><h3>Use good judgment</h3><p>Verify the domain independently and avoid entering credentials through unexpected links.</p></article>
+    </section>
+  </main>
+
+  <footer class="footer"><span>PHISHGUARD <span class="footer-dot">•</span> EDUCATIONAL CYBERSECURITY PROJECT</span><span>Analyze carefully. Browse safely.</span></footer>
+</body>
+</html>
